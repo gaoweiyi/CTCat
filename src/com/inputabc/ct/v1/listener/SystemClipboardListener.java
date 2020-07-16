@@ -11,13 +11,16 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
+import java.util.Map;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
+import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.controller.TextContentController;
 import com.inputabc.ct.v1.ui.TextBox;
 
@@ -31,6 +34,7 @@ public class SystemClipboardListener implements ClipboardOwner{
     private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
     private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);
     private JTextArea jta = (JTextArea) textBoxComponents.get("textBoxTextArea");
+    private JScrollPane jsp = (JScrollPane) textBoxComponents.get("textBoxScrollPane");
     private TextContentController tcc = new TextContentController();
     public SystemClipboardListener(){
         //如果剪贴板中有文本，则将它的ClipboardOwner设为自己
@@ -65,14 +69,20 @@ public class SystemClipboardListener implements ClipboardOwner{
         	String content = null;
 			try {
 				content = tcc.getTranslatedContent(text);//调用控制器获取翻译后的文本内容
-				jta.setForeground(Color.WHITE);
 				if(content==null){
 					content = "";
 				}
+				Map<Integer, Color> fgColorMap = (Map<Integer, Color>) ContextParams.contextParam.get("fgColorMap");
+				int pos = (int) ContextParams.contextParam.get("colorMapPos");
+				jta.setForeground(fgColorMap.get(pos));
 				jta.setText(content);
 			} catch (Exception e) {
 				e.printStackTrace();
-				jta.setForeground(Color.RED);
+				if(jsp.getViewport().getBackground().getRGB()==-53971) {
+					jta.setForeground(Color.BLUE);
+				}else {
+					jta.setForeground(Color.RED);
+				}
 				jta.setText("出错了！"+System.lineSeparator()+e.getMessage());
 				return;
 			}finally{

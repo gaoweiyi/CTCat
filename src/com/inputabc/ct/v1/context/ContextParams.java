@@ -47,9 +47,11 @@ public class ContextParams {
 		fgColorMap.put(8,new Color(50,50,50));
 		contextParam.put("fgColorMap", fgColorMap);
 		contextParam.put("colorMapPos",0);//颜色指针
-		
-		contextParam.put("translationEngine", "baidu");
+		//设置默认的翻译引擎
+		contextParam.put("translationEngine", "youdao");
+		//设置默认的翻译源语言
 		contextParam.put("sourceLanguage", BaiduUtils.ENGLISH);
+		//设置默认的翻译目标语言
 		contextParam.put("targetLanguage",BaiduUtils.CHINESE);
 	}
 }

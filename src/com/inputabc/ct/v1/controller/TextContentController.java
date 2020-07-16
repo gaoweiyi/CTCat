@@ -14,7 +14,6 @@ public class TextContentController {
 				throw new RuntimeException("文本长度过长");
 			}
 		}
-		content = content.toLowerCase();
 		return ts.translate(content);
 	}
 }
