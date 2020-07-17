@@ -207,7 +207,6 @@ public class TextBoxPopupMeunListenerHandler {
 									} else if ("baidu".equals(engine)) {
 										contextParam.put("sourceLanguage", BaiduUtils.CHINESE);
 										contextParam.put("targetLanguage", BaiduUtils.ENGLISH);
-										System.out.println(contextParam.get("targetLanguage"));
 									}
 									deleteIndexAll();
 								}
