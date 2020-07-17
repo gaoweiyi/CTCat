@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import com.inputabc.EzGUIFramework.main.EzGUI;
+import com.inputabc.EzGUIFramework.util.EzGUI;
 
 public class Test {
 	public static void main(String[] args) {

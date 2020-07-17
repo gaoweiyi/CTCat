@@ -36,15 +36,12 @@ public class YoudaoUtils {
 
 	private static final String YOUDAO_URL = "https://openapi.youdao.com/api";
 
-	private static final String APP_KEY = "";
-
-	private static final String APP_SECRET = "";
 	public static final String CHINESE = "zh-CHS";
 	public static final String ENGLISH = "en";
 	public static final String JPANESE = "ja";
 	public static final String KOREAN = "ko";
 
-	public static String translate(String query, String from, String to) throws IOException {
+	public static String translate(String query, String from, String to,String app_key,String app_secret) throws IOException {
 		Map<String, String> params = new HashMap<String, String>();
 		String q = query;
 		String salt = String.valueOf(System.currentTimeMillis());
@@ -53,9 +50,9 @@ public class YoudaoUtils {
 		params.put("signType", "v3");
 		String curtime = String.valueOf(System.currentTimeMillis() / 1000);
 		params.put("curtime", curtime);
-		String signStr = APP_KEY + truncate(q) + salt + curtime + APP_SECRET;
+		String signStr = app_key + truncate(q) + salt + curtime + app_secret;
 		String sign = getDigest(signStr);
-		params.put("appKey", APP_KEY);
+		params.put("appKey", app_key);
 		params.put("q", q);
 		params.put("salt", salt);
 		params.put("sign", sign);

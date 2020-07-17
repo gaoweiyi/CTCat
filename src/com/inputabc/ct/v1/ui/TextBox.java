@@ -26,11 +26,15 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.inputabc.EzGUIFramework.main.EzGUI;
+import org.apache.commons.lang3.StringUtils;
+
+import com.inputabc.EzGUIFramework.util.EzGUI;
 import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.ui.listener.TextBoxPopupMeunListenerHandler;
+import com.inputabc.ct.v1.util.BaiduUtils;
+import com.inputabc.ct.v1.util.YoudaoUtils;
 
 public class TextBox {
 	private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);
@@ -65,6 +69,16 @@ public class TextBox {
 			.get("textBoxTranslationEngineMenuYoudao");
 	private JMenuItem textBoxTranslationEngineMenuBaidu = (JMenuItem) textBoxComponents
 			.get("textBoxTranslationEngineMenuBaidu");
+	private JMenu textBoxSpeckMenu = (JMenu) textBoxComponents.get("textBoxSpeckMenu");
+	private JMenuItem textBoxSpeckMenuBeforeTranslate = (JMenuItem) textBoxComponents
+			.get("textBoxSpeckMenuBeforeTranslate");
+	private JMenu textBoxSpeckMenuAfterTranslatedMenu = (JMenu) textBoxComponents
+			.get("textBoxSpeckMenuAfterTranslatedMenu");
+	private JMenuItem textBoxSpeckMenuAfterTranslateMenuAll = (JMenuItem) textBoxComponents
+			.get("textBoxSpeckMenuAfterTranslateMenuAll");
+	private JMenuItem textBoxSpeckMenuAfterTranslateMenuSelected = (JMenuItem) textBoxComponents
+			.get("textBoxSpeckMenuAfterTranslateMenuSelected");
+	private JMenuItem textBoxKeyMenuItem = (JMenuItem) textBoxComponents.get("textBoxKeyMenuItem");
 	boolean left, right, up, down, add, subtract;
 	private Robot robot;
 
@@ -96,7 +110,7 @@ public class TextBox {
 		} else {
 			ta.setFont(new Font("宋体", Font.BOLD, 16));
 		}
-		ta.setText("按住Ctrl键拖拽我~");
+		ta.setText("按住鼠标滚轮来拖拽我~");
 		ta.setLineWrap(true);
 		ta.setWrapStyleWord(true);
 		ta.setEditable(false);
@@ -107,6 +121,8 @@ public class TextBox {
 		jpm.add(textBoxTranslationMenu);
 		textBoxTranslationEngineMenu.setText("翻译引擎");
 		jpm.add(textBoxTranslationEngineMenu);
+		textBoxSpeckMenu.setText("朗读");
+		jpm.add(textBoxSpeckMenu);
 		copyMi.setText("复制");
 		jpm.add(copyMi);
 		selectAllMi.setText("全选");
@@ -117,6 +133,8 @@ public class TextBox {
 		// jpm.add(moveMi);
 		textBoxRefreshMenu.setText("刷新");
 		jpm.add(textBoxRefreshMenu);
+		textBoxKeyMenuItem.setText("设置API密钥");
+		jpm.add(textBoxKeyMenuItem);
 		closeMi.setText("关闭");
 		jpm.add(closeMi);
 
@@ -147,18 +165,102 @@ public class TextBox {
 			@Override
 			public void run() {
 				String translationEngine = (String) ContextParams.contextParam.get("translationEngine");
-				// System.out.println(translationEngine);
 				textBoxTranslationMenuAUTO2CN.setEnabled("baidu".equals(translationEngine));
 				textBoxTranslationMenuAUTO2EN.setEnabled("baidu".equals(translationEngine));
 				textBoxTranslationMenuAUTO2JA.setEnabled("baidu".equals(translationEngine));
 				textBoxTranslationMenuAUTO2KR.setEnabled("baidu".equals(translationEngine));
 			}
 		}, 0, 10);
+		new Timer().schedule(new TimerTask() {
 
+			@Override
+			public void run() {
+				String translationEngine = (String) ContextParams.contextParam.get("translationEngine");
+				String sourceLanguage = (String) ContextParams.contextParam.get("sourceLanguage");
+				if ("baidu".equals(translationEngine)) {
+					textBoxSpeckMenuBeforeTranslate.setEnabled(BaiduUtils.AUTO.equals(sourceLanguage) == false);
+				}
+			}
+		}, 0, 10);
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				String translationEngine = (String) ContextParams.contextParam.get("translationEngine");
+				String sourceLanguage = (String) ContextParams.contextParam.get("sourceLanguage");
+				String sourceContent = (String) ContextParams.contextParam.get("sourceContent");
+				String translatedContent = (String) ContextParams.contextParam.get("translatedContent");
+				if ("baidu".equals(translationEngine)) {
+					if (BaiduUtils.AUTO.equals(sourceLanguage) == false) {
+						textBoxSpeckMenuBeforeTranslate.setEnabled(false);
+					} else {
+						if (StringUtils.isBlank(sourceContent)) {
+							textBoxSpeckMenuBeforeTranslate.setEnabled(false);
+						} else {
+							textBoxSpeckMenuBeforeTranslate.setEnabled(true);
+						}
+					}
+				} else {
+					if (StringUtils.isBlank(sourceContent)) {
+						textBoxSpeckMenuBeforeTranslate.setEnabled(false);
+					} else {
+						textBoxSpeckMenuBeforeTranslate.setEnabled(true);
+					}
+				}
+				if (StringUtils.isBlank(translatedContent)) {
+					textBoxSpeckMenuAfterTranslatedMenu.setEnabled(false);
+				} else {
+					textBoxSpeckMenuAfterTranslatedMenu.setEnabled(true);
+				}
+				if (StringUtils.isBlank(sourceContent) && StringUtils.isBlank(translatedContent)) {
+					textBoxSpeckMenu.setEnabled(false);
+				} else {
+					textBoxSpeckMenu.setEnabled(true);
+				}
+			}
+		}, 0, 100);
+		new Timer().schedule(new TimerTask() {
+
+			@Override
+			public void run() {
+				Map<Object, Object> contextparam = ContextParams.contextParam;
+				String youdaoAppKey = (String) contextparam.get("youdaoAppKey");
+				String youdaoAppSecret = (String) contextparam.get("youdaoAppSecret");
+				String baiduAppId = (String) contextparam.get("baiduAppId");
+				String baiduSecurityKey = (String) contextparam.get("baiduSecurityKey");
+				boolean youdaoVaild = StringUtils.isNotBlank(youdaoAppKey) && StringUtils.isNotBlank(youdaoAppSecret);
+				boolean baiduValid = StringUtils.isNotBlank(baiduAppId) && StringUtils.isNotBlank(baiduSecurityKey);
+				textBoxTranslationEngineMenuYoudao.setEnabled(youdaoVaild);
+				textBoxTranslationEngineMenuBaidu.setEnabled(baiduValid);
+				if (youdaoVaild == false && baiduValid == false) {
+					textBoxTranslationMenu.setEnabled(false);
+				} else {
+					textBoxTranslationMenu.setEnabled(true);
+				}
+				if (baiduValid && youdaoVaild == false) {
+					ContextParams.contextParam.put("translationEngine", "baidu");
+					ContextParams.contextParam.put("sourceLanguage", BaiduUtils.ENGLISH);
+					ContextParams.contextParam.put("targetLanguage", BaiduUtils.CHINESE);
+				} else if (youdaoVaild && baiduValid == false) {
+					ContextParams.contextParam.put("translationEngine", "youdao");
+					ContextParams.contextParam.put("sourceLanguage", YoudaoUtils.ENGLISH);
+					ContextParams.contextParam.put("targetLanguage", YoudaoUtils.CHINESE);
+				}
+			}
+		}, 0, 50);
 		textBoxTranslationEngineMenuYoudao.setText("有道");
 		textBoxTranslationEngineMenu.add(textBoxTranslationEngineMenuYoudao);
 		textBoxTranslationEngineMenuBaidu.setText("百度");
 		textBoxTranslationEngineMenu.add(textBoxTranslationEngineMenuBaidu);
+
+		textBoxSpeckMenuBeforeTranslate.setText("翻译前");
+		textBoxSpeckMenu.add(textBoxSpeckMenuBeforeTranslate);
+		textBoxSpeckMenuAfterTranslatedMenu.setText("翻译后");
+		textBoxSpeckMenu.add(textBoxSpeckMenuAfterTranslatedMenu);
+		textBoxSpeckMenuAfterTranslateMenuAll.setText("全部");
+		textBoxSpeckMenuAfterTranslatedMenu.add(textBoxSpeckMenuAfterTranslateMenuAll);
+		textBoxSpeckMenuAfterTranslateMenuSelected.setText("已选择的");
+		textBoxSpeckMenuAfterTranslatedMenu.add(textBoxSpeckMenuAfterTranslateMenuSelected);
 
 		EzGUI.setJPopupMenuForSwing(ta, jpm);
 
@@ -328,29 +430,29 @@ public class TextBox {
 		final Map<String, Boolean> flag = new Hashtable<String, Boolean>();
 		eventSource.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if ((e.getButton() == MouseEvent.BUTTON1 && e.isControlDown())||e.getButton()==MouseEvent.BUTTON2) {
-					if(e.getButton()==MouseEvent.BUTTON2) {
+				if ((e.getButton() == MouseEvent.BUTTON1 && e.isControlDown()) || e.getButton() == MouseEvent.BUTTON2) {
+					if (e.getButton() == MouseEvent.BUTTON2) {
 						flag.put("clikedButton2", true);
 					}
 					flag.put("dragable", true);
 					origin.x = e.getX();
 					origin.y = e.getY();
-				} 
-				else {
+				} else {
 					flag.put("dragable", false);
 				}
 			}
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(e.getButton()==MouseEvent.BUTTON2) {
+				if (e.getButton() == MouseEvent.BUTTON2) {
 					flag.put("clikedButton2", false);
 				}
 			}
 		});
 		eventSource.addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e) {
-				
-				if (flag.get("dragable") == true && (e.isControlDown()||flag.get("clikedButton2"))) {
+
+				if (flag.get("dragable") == true && (e.isControlDown() || flag.get("clikedButton2"))) {
 					Point p = dragged.getLocation();
 					dragged.setLocation(p.x + e.getX() - origin.x, p.y + e.getY() - origin.y);
 				}

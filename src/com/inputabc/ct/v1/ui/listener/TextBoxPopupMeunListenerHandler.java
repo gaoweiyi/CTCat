@@ -23,13 +23,17 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
 
-import com.inputabc.EzGUIFramework.main.EzGUI;
+import com.inputabc.EzGUIFramework.util.EzGUI;
+import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.ui.TextBox;
+import com.inputabc.ct.v1.ui.keysetting.KeySettingFrame;
 import com.inputabc.ct.v1.util.BaiduUtils;
+import com.inputabc.ct.v1.util.TTSUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
+import com.voicerss.tts.Languages;
 
 public class TextBoxPopupMeunListenerHandler {
 	private JPopupMenu jpm;
@@ -64,7 +68,7 @@ public class TextBoxPopupMeunListenerHandler {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							EzGUI.fadeOut(jf, EzGUI.FADE_NORMAL);
+							EzGUI.fadeOut(jf, EzGUI.FADE_FAST);
 							System.exit(0);
 						}
 					});
@@ -156,8 +160,7 @@ public class TextBoxPopupMeunListenerHandler {
 
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuJA2CN".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuJA2CN".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -174,8 +177,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuKR2CN".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuKR2CN".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -192,8 +194,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuCN2EN".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuCN2EN".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -211,8 +212,7 @@ public class TextBoxPopupMeunListenerHandler {
 									System.out.println(2);
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuCN2JA".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuCN2JA".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -229,8 +229,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuCN2KR".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuCN2KR".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -248,8 +247,7 @@ public class TextBoxPopupMeunListenerHandler {
 
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuAUTO2CN".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuAUTO2CN".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -260,8 +258,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuAUTO2EN".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuAUTO2EN".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -272,8 +269,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuAUTO2JA".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuAUTO2JA".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -284,8 +280,7 @@ public class TextBoxPopupMeunListenerHandler {
 									deleteIndexAll();
 								}
 							});
-						}
-						else if ("textBoxTranslationMenuAUTO2KR".equals(c2.getName())) {
+						} else if ("textBoxTranslationMenuAUTO2KR".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
@@ -299,31 +294,148 @@ public class TextBoxPopupMeunListenerHandler {
 						}
 					}
 				}
-				if("textBoxTranslationEngineMenu".equals(c.getName())) {
+				if ("textBoxTranslationEngineMenu".equals(c.getName())) {
 					JMenu translateMenu = (JMenu) c;
 					Component[] components2 = translateMenu.getMenuComponents();
 					for (Component c2 : components2) {
-						if("textBoxTranslationEngineMenuYoudao".equals(c2.getName())) {
+						if ("textBoxTranslationEngineMenuYoudao".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
 								public void actionPerformed(ActionEvent e) {
 									contextParam.put("translationEngine", "youdao");
+									contextParam.put("sourceLanguage", YoudaoUtils.ENGLISH);
+									contextParam.put("targetLanguage", YoudaoUtils.CHINESE);
 									deleteIndexAll();
 								}
 							});
-						}
-						else if("textBoxTranslationEngineMenuBaidu".equals(c2.getName())) {
+						} else if ("textBoxTranslationEngineMenuBaidu".equals(c2.getName())) {
 							((JMenuItem) c2).addActionListener(new ActionListener() {
 
 								@Override
 								public void actionPerformed(ActionEvent e) {
 									contextParam.put("translationEngine", "baidu");
+									contextParam.put("sourceLanguage", BaiduUtils.ENGLISH);
+									contextParam.put("targetLanguage", BaiduUtils.CHINESE);
 									deleteIndexAll();
 								}
 							});
 						}
 					}
+				}
+				if ("textBoxSpeckMenu".equals(c.getName())) {
+					JMenu speckMenu = (JMenu) c;
+					Component[] menuComponents = speckMenu.getMenuComponents();
+					for (Component c2 : menuComponents) {
+						if ("textBoxSpeckMenuBeforeTranslate".equals(c2.getName())) {
+							((JMenuItem) c2).addActionListener(new ActionListener() {
+
+								@Override
+								public void actionPerformed(ActionEvent e) {
+									String engine = (String) contextParam.get("translationEngine");
+									String sourceLanguage = (String) contextParam.get("sourceLanguage");
+									String content = (String) contextParam.get("sourceContent");
+									if ("youdao".equals(engine)) {
+										if (YoudaoUtils.CHINESE.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Chinese_China);
+										} else if (YoudaoUtils.ENGLISH.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.English_GreatBritain);
+										} else if (YoudaoUtils.JPANESE.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Japanese);
+										} else if (YoudaoUtils.KOREAN.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Korean);
+										}
+									} else if ("baidu".equals(engine)) {
+										if (BaiduUtils.CHINESE.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Chinese_China);
+										} else if (BaiduUtils.ENGLISH.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.English_GreatBritain);
+										} else if (BaiduUtils.JPANESE.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Japanese);
+										} else if (BaiduUtils.KOREAN.equals(sourceLanguage)) {
+											TTSUtils.speak(content, Languages.Korean);
+										}
+									}
+								}
+							});
+						}else if("textBoxSpeckMenuAfterTranslatedMenu".equals(c2.getName())) {
+							JMenu afterTranslatedMenu = (JMenu) c2;
+							Component[] menuComponents2 = afterTranslatedMenu.getMenuComponents();
+							for (Component c3 : menuComponents2) {
+								if("textBoxSpeckMenuAfterTranslateMenuAll".equals(c3.getName())) {
+									((JMenuItem) c3).addActionListener(new ActionListener() {
+										
+										@Override
+										public void actionPerformed(ActionEvent e) {
+											String engine = (String) contextParam.get("translationEngine");
+											String targetLanguage = (String) contextParam.get("targetLanguage");
+											String content = (String) contextParam.get("translatedContent");
+											if ("youdao".equals(engine)) {
+												if (YoudaoUtils.CHINESE.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Chinese_China);
+												} else if (YoudaoUtils.ENGLISH.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.English_GreatBritain);
+												} else if (YoudaoUtils.JPANESE.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Japanese);
+												} else if (YoudaoUtils.KOREAN.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Korean);
+												}
+											} else if ("baidu".equals(engine)) {
+												if (BaiduUtils.CHINESE.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Chinese_China);
+												} else if (BaiduUtils.ENGLISH.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.English_GreatBritain);
+												} else if (BaiduUtils.JPANESE.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Japanese);
+												} else if (BaiduUtils.KOREAN.equals(targetLanguage)) {
+													TTSUtils.speak(content, Languages.Korean);
+												}
+											}
+										}
+									});
+								}else if("textBoxSpeckMenuAfterTranslateMenuSelected".equals(c3.getName())) {
+									((JMenuItem) c3).addActionListener(new ActionListener() {
+										@Override
+										public void actionPerformed(ActionEvent e) {
+											String selectedText = jta.getSelectedText();
+											String engine = (String) contextParam.get("translationEngine");
+											String targetLanguage = (String) contextParam.get("targetLanguage");
+											if ("youdao".equals(engine)) {
+												if (YoudaoUtils.CHINESE.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Chinese_China);
+												} else if (YoudaoUtils.ENGLISH.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.English_GreatBritain);
+												} else if (YoudaoUtils.JPANESE.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Japanese);
+												} else if (YoudaoUtils.KOREAN.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Korean);
+												}
+											} else if ("baidu".equals(engine)) {
+												if (BaiduUtils.CHINESE.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Chinese_China);
+												} else if (BaiduUtils.ENGLISH.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.English_GreatBritain);
+												} else if (BaiduUtils.JPANESE.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Japanese);
+												} else if (BaiduUtils.KOREAN.equals(targetLanguage)) {
+													TTSUtils.speak(selectedText, Languages.Korean);
+												}
+											}
+										}
+									});
+								}
+							}
+						}
+					}
+				}
+				if("textBoxKeyMenuItem".equals(c.getName())) {
+					((JMenuItem)c).addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							new KeySettingFrame().setVisible(true);
+						}
+					});
 				}
 
 			}

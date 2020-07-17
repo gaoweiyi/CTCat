@@ -36,6 +36,7 @@ public class SystemClipboardListener implements ClipboardOwner{
     private JTextArea jta = (JTextArea) textBoxComponents.get("textBoxTextArea");
     private JScrollPane jsp = (JScrollPane) textBoxComponents.get("textBoxScrollPane");
     private TextContentController tcc = new TextContentController();
+    private Map<Object,Object> contextParam = ContextParams.contextParam;
     public SystemClipboardListener(){
         //如果剪贴板中有文本，则将它的ClipboardOwner设为自己
     	 clipboard.setContents(clipboard.getContents(null), this);
@@ -68,7 +69,9 @@ public class SystemClipboardListener implements ClipboardOwner{
         if(StringUtils.isNotBlank(text)){
         	String content = null;
 			try {
+				contextParam.put("sourceContent",text);
 				content = tcc.getTranslatedContent(text);//调用控制器获取翻译后的文本内容
+				contextParam.put("translatedContent", content);
 				if(content==null){
 					content = "";
 				}

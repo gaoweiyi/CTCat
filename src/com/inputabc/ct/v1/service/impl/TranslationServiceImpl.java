@@ -42,11 +42,15 @@ public class TranslationServiceImpl implements TranslationService {
 				try {
 					String translationEngine = (String) contextParam.get("translationEngine");
 					if ("youdao".equals(translationEngine)) {
+						String youdaoAppKey = (String) contextParam.get("youdaoAppKey");
+						String youdaoAppSecret = (String) contextParam.get("youdaoAppSecret");
 						translated = YoudaoUtils.translate(content, (String) contextParam.get("sourceLanguage"),
-								(String) contextParam.get("targetLanguage"));
+								(String) contextParam.get("targetLanguage"), youdaoAppKey, youdaoAppSecret);
 					} else if ("baidu".equals(translationEngine)) {
+						String baiduAppId = (String) contextParam.get("baiduAppId");
+						String baiduSecurityKey = (String) contextParam.get("baiduSecurityKey");
 						translated = BaiduUtils.translate(content, (String) contextParam.get("sourceLanguage"),
-								(String) contextParam.get("targetLanguage"));
+								(String) contextParam.get("targetLanguage"), baiduAppId, baiduSecurityKey);
 					}
 					oth.writeTranslatedContentToIndex(content, translated, fsdir);// 将翻译后的内容写入索引库
 				} catch (Exception e) {
@@ -63,11 +67,15 @@ public class TranslationServiceImpl implements TranslationService {
 				// 进行在线翻译
 				String translationEngine = (String) contextParam.get("translationEngine");
 				if ("youdao".equals(translationEngine)) {
+					String youdaoAppKey = (String) contextParam.get("youdaoAppKey");
+					String youdaoAppSecret = (String) contextParam.get("youdaoAppSecret");
 					translated = YoudaoUtils.translate(content, (String) contextParam.get("sourceLanguage"),
-							(String) contextParam.get("targetLanguage"));
+							(String) contextParam.get("targetLanguage"), youdaoAppKey, youdaoAppSecret);
 				} else if ("baidu".equals(translationEngine)) {
+					String baiduAppId = (String) contextParam.get("baiduAppId");
+					String baiduSecurityKey = (String) contextParam.get("baiduSecurityKey");
 					translated = BaiduUtils.translate(content, (String) contextParam.get("sourceLanguage"),
-							(String) contextParam.get("targetLanguage"));
+							(String) contextParam.get("targetLanguage"), baiduAppId, baiduSecurityKey);
 				}
 			} else {
 				throw e;

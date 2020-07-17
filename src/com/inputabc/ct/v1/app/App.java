@@ -10,8 +10,8 @@ import com.inputabc.ct.v1.util.MessageBox;
  * CT猫
  * （剪切板内容翻译工具）
  * @author gaoweiyi
- * @version 1.7.2
- * @date 2020-07-16
+ * @version 1.8.0
+ * @date 2020-07-17
  */
 public class App {
 

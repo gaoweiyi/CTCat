@@ -44,7 +44,6 @@ public class ForcedTranslationHandlerImpl implements ForcedTranslationHandler {
 			Matcher matcher = pattern.matcher(sourceContent);
 			while(matcher.find()) {
 				String group = matcher.group();
-				System.out.println(group);
 				words.add(group);
 			}
 			return StringUtils.join(words, " ").toLowerCase();

@@ -9,18 +9,13 @@ import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.json.JSONObject;
 
 public class BaiduUtils {
-	private static final String APP_ID = "";
-	private static final String SECURITY_KEY = "";
-	private static TransApi api;
 	public static final String CHINESE = "zh";
 	public static final String ENGLISH = "en";
 	public static final String JPANESE = "jp";
 	public static final String KOREAN = "kor";
 	public static final String AUTO = "auto";
-	static {
-		api = new TransApi(APP_ID, SECURITY_KEY);
-	}
-	public static String translate(String src,String srcLang,String targetLang) {
+	public static String translate(String src,String srcLang,String targetLang,String app_id,String security_key) {
+		TransApi api = new TransApi(app_id, security_key);
 		String transResult = api.getTransResult(src,srcLang,targetLang);
 		JSONObject fromObject = JSONObject.fromObject(transResult);
 		Map<String, Object> map = (Map<String, Object>) JSONObject.toBean(fromObject, HashMap.class);

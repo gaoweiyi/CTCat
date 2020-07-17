@@ -11,7 +11,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import com.inputabc.EzGUIFramework.main.EzGUI;
+import com.inputabc.EzGUIFramework.util.EzGUI;
 import com.inputabc.ct.v1.ui.SettingColorDialog;
 import com.inputabc.ct.v1.ui.TextBox;
 
@@ -180,6 +180,31 @@ public class ComponentsBuilder {
 		JMenuItem jmi19 = new JMenuItem();
 		jmi19.setName("textBoxTranslationEngineMenuBaidu");
 		textBoxComs.put(jmi19.getName(), jmi19);
+		
+		JMenu jm3 = new JMenu();
+		jm3.setName("textBoxSpeckMenu");
+		textBoxComs.put(jm3.getName(), jm3);
+		
+		JMenuItem jmi20 = new JMenuItem();
+		jmi20.setName("textBoxSpeckMenuBeforeTranslate");
+		textBoxComs.put(jmi20.getName(), jmi20);
+		
+		JMenu jm4 = new JMenu();
+		jm4.setName("textBoxSpeckMenuAfterTranslatedMenu");
+		textBoxComs.put(jm4.getName(), jm4);
+		
+		JMenuItem jmi21 = new JMenuItem();
+		jmi21.setName("textBoxSpeckMenuAfterTranslateMenuAll");
+		textBoxComs.put(jmi21.getName(), jmi21);
+		
+		JMenuItem jmi22 = new JMenuItem();
+		jmi22.setName("textBoxSpeckMenuAfterTranslateMenuSelected");
+		textBoxComs.put(jmi22.getName(), jmi22);
+		
+
+		JMenuItem jm5 = new JMenuItem();
+		jm5.setName("textBoxKeyMenuItem");
+		textBoxComs.put(jm5.getName(), jm5);
 	}
 
 	public static ComponentsContext getComponentsContext() {
