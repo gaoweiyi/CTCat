@@ -191,7 +191,7 @@ public class TextBox {
 				String sourceContent = (String) ContextParams.contextParam.get("sourceContent");
 				String translatedContent = (String) ContextParams.contextParam.get("translatedContent");
 				if ("baidu".equals(translationEngine)) {
-					if (BaiduUtils.AUTO.equals(sourceLanguage) == false) {
+					if (BaiduUtils.AUTO.equals(sourceLanguage) == true) {
 						textBoxSpeckMenuBeforeTranslate.setEnabled(false);
 					} else {
 						if (StringUtils.isBlank(sourceContent)) {
@@ -218,7 +218,7 @@ public class TextBox {
 					textBoxSpeckMenu.setEnabled(true);
 				}
 			}
-		}, 0, 100);
+		}, 0, 20);
 		new Timer().schedule(new TimerTask() {
 
 			@Override
@@ -239,12 +239,16 @@ public class TextBox {
 				}
 				if (baiduValid && youdaoVaild == false) {
 					ContextParams.contextParam.put("translationEngine", "baidu");
-					ContextParams.contextParam.put("sourceLanguage", BaiduUtils.ENGLISH);
-					ContextParams.contextParam.put("targetLanguage", BaiduUtils.CHINESE);
+					if (ContextParams.contextParam.get("sourceLanguage") == null)
+						ContextParams.contextParam.put("sourceLanguage", BaiduUtils.ENGLISH);
+					if (ContextParams.contextParam.get("targetLanguage") == null)
+						ContextParams.contextParam.put("targetLanguage", BaiduUtils.CHINESE);
 				} else if (youdaoVaild && baiduValid == false) {
 					ContextParams.contextParam.put("translationEngine", "youdao");
-					ContextParams.contextParam.put("sourceLanguage", YoudaoUtils.ENGLISH);
-					ContextParams.contextParam.put("targetLanguage", YoudaoUtils.CHINESE);
+					if (ContextParams.contextParam.get("sourceLanguage") == null)
+						ContextParams.contextParam.put("sourceLanguage", YoudaoUtils.ENGLISH);
+					if (ContextParams.contextParam.get("targetLanguage") == null)
+						ContextParams.contextParam.put("targetLanguage", YoudaoUtils.CHINESE);
 				}
 			}
 		}, 0, 50);
