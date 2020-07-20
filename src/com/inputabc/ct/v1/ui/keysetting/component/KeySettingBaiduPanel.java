@@ -1,4 +1,4 @@
-package com.inputabc.ct.v1.ui.keysetting;
+package com.inputabc.ct.v1.ui.keysetting.component;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -31,39 +31,14 @@ public class KeySettingBaiduPanel extends JPanel {
 	}
 
 	public KeySettingBaiduPanel() {
-		setBackground(Color.white);
-		setLayout(new FlowLayout());
 		add(appIdLabel);
 		add(appIdTextField);
 		add(securityKeyLabel);
 		add(securityKeyTextField);
-		appIdTextField.setColumns(46);
-		securityKeyTextField.setColumns(40);
 		String baiduAppId = (String) contextParam.get("baiduAppId");
 		String baiduSecurityKey = (String) contextParam.get("baiduSecurityKey");
 		appIdTextField.setText(baiduAppId);
 		securityKeyTextField.setText(baiduSecurityKey);
-		
-		final KeySettingBaiduPanelAction keySettingBaiduPanelAction = new KeySettingBaiduPanelAction(this);
-		DocumentListener documentListener = new DocumentListener() {
-			
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				keySettingBaiduPanelAction.textFieldChange();
-			}
-			
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				keySettingBaiduPanelAction.textFieldChange();
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				keySettingBaiduPanelAction.textFieldChange();
-			}
-		};
-		appIdTextField.getDocument().addDocumentListener(documentListener);
-		securityKeyTextField.getDocument().addDocumentListener(documentListener);
 	}
 
 	public JLabel getAppIdLabel() {

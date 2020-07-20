@@ -1,6 +1,5 @@
 package com.inputabc.ct.v1.ui.keysetting.action;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.Map;
 
@@ -9,10 +8,11 @@ import javax.swing.JTextField;
 
 import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.context.ContextParams;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingBaiduPanel;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingControlPanel;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingFrame;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingYoudaoPanel;
+import com.inputabc.ct.v1.ui.keysetting.KeySettingBuilder;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingBaiduPanel;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingControlPanel;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingFrame;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingYoudaoPanel;
 import com.inputabc.ct.v1.util.KeyIOUtils;
 /**
  * KeySettingControlPanel对象的事件处理类
@@ -42,9 +42,12 @@ public class KeySettingControlPanelAction {
 	public void clickCancel() {
 		KeySettingFrame keySettingFrame = (KeySettingFrame) Ez.getComponentWithCrossParentByNameEqual(keySettingControlPanel, KeySettingFrame.class.getName());
 		keySettingFrame.dispose();
+		KeySettingBuilder keySettingBuilder = (KeySettingBuilder) ContextParams.contextParam.get("keySettingBuilder");
+		keySettingBuilder.destory();
 	}
 	public void clickOk(ActionEvent ae) {
 		clickApply(ae);
 		clickCancel();
 	}
+
 }

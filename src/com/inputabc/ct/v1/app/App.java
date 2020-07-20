@@ -2,6 +2,7 @@ package com.inputabc.ct.v1.app;
 
 import javax.swing.JOptionPane;
 
+import com.inputabc.EzGUIFramework.util.EzGUI;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.listener.SystemClipboardListener;
 import com.inputabc.ct.v1.ui.TextBox;
@@ -10,8 +11,8 @@ import com.inputabc.ct.v1.util.MessageBox;
  * CT猫
  * （剪切板内容翻译工具）
  * @author gaoweiyi
- * @version 1.8.0
- * @date 2020-07-17
+ * @version 1.8.1
+ * @date 2020-07-20
  */
 public class App {
 

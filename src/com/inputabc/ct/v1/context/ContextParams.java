@@ -10,10 +10,15 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.abcinput.ftpd.config.gui.util.PFileUtils;
+import com.inputabc.ct.v1.ui.keysetting.KeySettingBuilder;
 import com.inputabc.ct.v1.util.BaiduUtils;
 import com.inputabc.ct.v1.util.KeyIOUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
-
+/**
+ * 存放app的参数以及执行app的初始化任务
+ * @author gaoweiyi
+ *
+ */
 public class ContextParams {
 	public static final Map<Object,Object> contextParam = new Hashtable<Object,Object>();
 	static{
@@ -51,10 +56,7 @@ public class ContextParams {
 		contextParam.put("colorMapPos",0);//颜色指针
 		//设置默认的翻译引擎
 		contextParam.put("translationEngine", "youdao");
-		//设置默认的翻译源语言
-		contextParam.put("sourceLanguage", YoudaoUtils.ENGLISH);
-		//设置默认的翻译目标语言
-		contextParam.put("targetLanguage",YoudaoUtils.CHINESE);
+		contextParam.put("keySettingBuilder", new KeySettingBuilder());
 		
 		KeyIOUtils.load();
 	} 

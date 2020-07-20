@@ -1,6 +1,7 @@
 package com.inputabc.ct.v1.ui.listener;
 
 import java.awt.Component;
+
 import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -24,12 +25,12 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.FSDirectory;
 
 import com.inputabc.EzGUIFramework.util.EzGUI;
-import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.ui.TextBox;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingFrame;
+import com.inputabc.ct.v1.ui.keysetting.KeySettingBuilder;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingFrame;
 import com.inputabc.ct.v1.util.BaiduUtils;
 import com.inputabc.ct.v1.util.TTSUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
@@ -357,13 +358,13 @@ public class TextBoxPopupMeunListenerHandler {
 									}
 								}
 							});
-						}else if("textBoxSpeckMenuAfterTranslatedMenu".equals(c2.getName())) {
+						} else if ("textBoxSpeckMenuAfterTranslatedMenu".equals(c2.getName())) {
 							JMenu afterTranslatedMenu = (JMenu) c2;
 							Component[] menuComponents2 = afterTranslatedMenu.getMenuComponents();
 							for (Component c3 : menuComponents2) {
-								if("textBoxSpeckMenuAfterTranslateMenuAll".equals(c3.getName())) {
+								if ("textBoxSpeckMenuAfterTranslateMenuAll".equals(c3.getName())) {
 									((JMenuItem) c3).addActionListener(new ActionListener() {
-										
+
 										@Override
 										public void actionPerformed(ActionEvent e) {
 											String engine = (String) contextParam.get("translationEngine");
@@ -392,7 +393,7 @@ public class TextBoxPopupMeunListenerHandler {
 											}
 										}
 									});
-								}else if("textBoxSpeckMenuAfterTranslateMenuSelected".equals(c3.getName())) {
+								} else if ("textBoxSpeckMenuAfterTranslateMenuSelected".equals(c3.getName())) {
 									((JMenuItem) c3).addActionListener(new ActionListener() {
 										@Override
 										public void actionPerformed(ActionEvent e) {
@@ -427,12 +428,20 @@ public class TextBoxPopupMeunListenerHandler {
 						}
 					}
 				}
-				if("textBoxKeyMenuItem".equals(c.getName())) {
-					((JMenuItem)c).addActionListener(new ActionListener() {
-						
+				if ("textBoxKeyMenuItem".equals(c.getName())) {
+					((JMenuItem) c).addActionListener(new ActionListener() {
+
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							new KeySettingFrame().setVisible(true);
+							KeySettingBuilder keySettingBuilder = (KeySettingBuilder) contextParam
+									.get("keySettingBuilder");
+							KeySettingFrame keySettingFrame = keySettingBuilder.getKeySettingFrame();
+							if (keySettingFrame == null) {
+								keySettingBuilder.build();
+							} else {
+								keySettingFrame.requestFocus();
+							}
+
 						}
 					});
 				}

@@ -3,8 +3,8 @@ package com.inputabc.ct.v1.ui.keysetting.action;
 import javax.swing.JButton;
 
 import com.inputabc.EzGUIFramework.util.alias.Ez;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingControlPanel;
-import com.inputabc.ct.v1.ui.keysetting.KeySettingBaiduPanel;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingBaiduPanel;
+import com.inputabc.ct.v1.ui.keysetting.component.KeySettingControlPanel;
 
 public class KeySettingBaiduPanelAction {
 	private KeySettingBaiduPanel keySettingBaiduPanel;

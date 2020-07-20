@@ -1,4 +1,4 @@
-package com.inputabc.ct.v1.ui.keysetting;
+package com.inputabc.ct.v1.ui.keysetting.component;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -32,39 +32,14 @@ public class KeySettingYoudaoPanel extends JPanel {
 	}
 
 	public KeySettingYoudaoPanel() {
-		setBackground(Color.white);
-		setLayout(new FlowLayout());
 		add(appKeyLabel);
 		add(appKeyTextField);
 		add(appSecretLabel);
 		add(appSecretTextField);
-		appKeyTextField.setColumns(45);
-		appSecretTextField.setColumns(42);
 		String youdaoAppKey = (String) contextParam.get("youdaoAppKey");
 		String youdaoAppSecret = (String) contextParam.get("youdaoAppSecret");
 		appKeyTextField.setText(youdaoAppKey);
 		appSecretTextField.setText(youdaoAppSecret);
-
-		final KeySettingYoudaoPanelAction keySettingYoudaoPanelAction = new KeySettingYoudaoPanelAction(this);
-		DocumentListener documentListener = new DocumentListener() {
-			
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				keySettingYoudaoPanelAction.textFieldChange();
-			}
-			
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				keySettingYoudaoPanelAction.textFieldChange();
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				keySettingYoudaoPanelAction.textFieldChange();
-			}
-		};
-		appKeyTextField.getDocument().addDocumentListener(documentListener);
-		appSecretTextField.getDocument().addDocumentListener(documentListener);
 	}
 
 	public JLabel getAppKeyLabel() {
