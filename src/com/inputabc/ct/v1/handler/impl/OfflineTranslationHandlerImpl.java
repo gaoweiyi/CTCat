@@ -8,6 +8,7 @@ import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.StoredField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexNotFoundException;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -18,7 +19,11 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 
 import com.inputabc.ct.v1.handler.OfflineTranslationHandler;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class OfflineTranslationHandlerImpl implements OfflineTranslationHandler {
 	@Override
 	public void writeTranslatedContentToIndex(String content,String translatedContent,Directory dir){
@@ -60,8 +65,13 @@ public class OfflineTranslationHandlerImpl implements OfflineTranslationHandler 
 				return null;//索引库中没有收录该content
 			}
 		} catch (IOException e) {
+			//1.8.2
+			if(e instanceof IndexNotFoundException) {
+				return null;
+			}
 			e.printStackTrace();
 			throw new RuntimeException(e);
+			////
 		}finally {
 			if(indexReader!=null){
 				try {

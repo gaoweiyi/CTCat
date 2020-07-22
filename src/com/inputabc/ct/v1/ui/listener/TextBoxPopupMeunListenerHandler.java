@@ -14,11 +14,13 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -36,8 +38,16 @@ import com.inputabc.ct.v1.util.TTSUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
 import com.voicerss.tts.Languages;
 
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class TextBoxPopupMeunListenerHandler {
 	private JPopupMenu jpm;
+	// 1.8.2
+	private JMenuBar jmb;
+	////
 	private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);
 	private JFrame jf = (JFrame) textBoxComponents.get("textBoxFrame");
 	private JTextArea jta = (JTextArea) textBoxComponents.get("textBoxTextArea");
@@ -59,8 +69,22 @@ public class TextBoxPopupMeunListenerHandler {
 		this.jpm = jpm;
 	}
 
+	// 1.8.2
+	public TextBoxPopupMeunListenerHandler(JMenuBar jmb) {
+		this();
+		this.jmb = jmb;
+	}
+
+	////
 	public void bindMenuItemListener() {
-		Component[] components = jpm.getComponents();
+		//1.8.2
+		Component[] components;
+		if (SystemUtils.IS_OS_WINDOWS) {
+			components = jpm.getComponents();
+		} else {
+			components = jmb.getComponents();
+		}
+		////
 		for (Component c : components) {
 			if (c instanceof JMenuItem) {
 
@@ -69,7 +93,11 @@ public class TextBoxPopupMeunListenerHandler {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							EzGUI.fadeOut(jf, EzGUI.FADE_FAST);
+							//1.8.2
+							if(SystemUtils.IS_OS_WINDOWS) {
+								EzGUI.fadeOut(jf, EzGUI.FADE_FAST);
+							}
+							////
 							System.exit(0);
 						}
 					});

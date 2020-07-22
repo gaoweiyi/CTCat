@@ -1,10 +1,15 @@
 package com.inputabc.ct.v1.ui.keysetting;
 
 import com.inputabc.EzGUIFramework.util.EzGUI;
+import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.service.KeySettingUIService;
 import com.inputabc.ct.v1.service.impl.KeySettingUIServiceImpl;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingFrame;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingBuilder {
 	private KeySettingFrame keySettingFrame;
 	private KeySettingUIService keySettingUIService = new KeySettingUIServiceImpl();

@@ -30,7 +30,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.json.JSONObject;
-
+/**
+ * @author youdao
+ * @author gaoweiyi
+ *
+ */
 public class YoudaoUtils {
 	private static Logger logger = LoggerFactory.getLogger(YoudaoUtils.class);
 

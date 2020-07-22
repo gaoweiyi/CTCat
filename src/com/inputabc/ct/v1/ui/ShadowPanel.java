@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 public class ShadowPanel extends JPanel {
 
 	  /**

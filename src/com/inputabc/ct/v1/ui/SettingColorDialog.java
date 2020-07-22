@@ -10,7 +10,11 @@ import javax.swing.JPanel;
 
 import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class SettingColorDialog {
 	private Components settingColorDialogComponents = ComponentsBuilder.getComponentsContext()
 			.get(SettingColorDialog.class);

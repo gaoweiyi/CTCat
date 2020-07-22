@@ -5,6 +5,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -205,6 +206,11 @@ public class ComponentsBuilder {
 		JMenuItem jm5 = new JMenuItem();
 		jm5.setName("textBoxKeyMenuItem");
 		textBoxComs.put(jm5.getName(), jm5);
+		//1.8.2
+		JMenuBar jmb = new JMenuBar();
+		jmb.setName("textBoxMacMenuBar");
+		textBoxComs.put(jmb.getName(), jmb);
+		////
 	}
 
 	public static ComponentsContext getComponentsContext() {

@@ -13,7 +13,11 @@ import javax.swing.event.DocumentListener;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.ui.keysetting.action.KeySettingBaiduPanelAction;
 import com.inputabc.ct.v1.ui.keysetting.action.KeySettingYoudaoPanelAction;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingBaiduPanel extends JPanel {
 	private JLabel appIdLabel;
 	private JTextField appIdTextField;

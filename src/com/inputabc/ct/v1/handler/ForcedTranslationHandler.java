@@ -1,5 +1,9 @@
 package com.inputabc.ct.v1.handler;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public interface ForcedTranslationHandler extends TranslateHandler{
 	/**
 	 * 判断文本内容是否符合指定格式

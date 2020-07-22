@@ -12,7 +12,11 @@ import com.inputabc.ct.v1.context.Components;
 import com.inputabc.ct.v1.context.ComponentsBuilder;
 import com.inputabc.ct.v1.ui.TextBox;
 import com.inputabc.ct.v1.ui.keysetting.action.KeySettingFrameAction;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingFrame extends JFrame {
 	private KeySettingMainPanel keySettingMainPanel;
 	private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);

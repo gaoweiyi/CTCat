@@ -4,7 +4,11 @@ import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingKeyItemPanel extends JPanel {
 	private KeySettingYoudaoPanel keySettingYoudaoPanel;
 	private KeySettingBaiduPanel keySettingBaiduPanel;

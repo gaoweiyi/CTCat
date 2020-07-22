@@ -14,19 +14,33 @@ import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.apache.commons.lang3.SystemUtils;
+
 import java.util.Properties;
 import java.util.Set;
 
 import com.inputabc.ct.v1.context.ContextParams;
+
 /**
  * 将翻译api的密钥信息加密读写
+ * 
  * @author gaoweiyi
  *
  */
 public class KeyIOUtils {
 	private static final Map<Object, Object> contextParam = ContextParams.contextParam;
-	private static String filePath = PFileUtils.getTargetPath() + "/AppData/Local/ctcatv1/";
+	// 1.8.2
+	private static String filePath;
+	////
 	static {
+		// 1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			filePath = PFileUtils.getTargetPath() + "/AppData/Local/ctcatv1/";
+		} else {
+			filePath = PFileUtils.getTargetPath() + "/ctcatv1/";
+		}
+		////
 		File dir = new File(filePath);
 		if (dir.exists() == false) {
 			dir.mkdirs();
@@ -69,7 +83,7 @@ public class KeyIOUtils {
 				Decoder decoder = Base64.getDecoder();
 				byte[] decodedKey = decoder.decode(key);
 				byte[] decodedValue = decoder.decode(value);
-				contextParam.put(new String(decodedKey,"utf-8"),new String(decodedValue,"utf-8"));
+				contextParam.put(new String(decodedKey, "utf-8"), new String(decodedValue, "utf-8"));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -84,10 +98,14 @@ public class KeyIOUtils {
 		String baiduSecurityKey = (String) contextParam.get("baiduSecurityKey");
 		Encoder encoder = Base64.getEncoder();
 		try {
-			p.setProperty(new String(encoder.encode("youdaoAppKey".getBytes("utf-8")),"utf-8"), new String(encoder.encode(youdaoAppKey.getBytes("utf-8")),"utf-8"));
-			p.setProperty(new String(encoder.encode("youdaoAppSecret".getBytes("utf-8")),"utf-8"), new String(encoder.encode(youdaoAppSecret.getBytes("utf-8")),"utf-8"));
-			p.setProperty(new String(encoder.encode("baiduAppId".getBytes("utf-8")),"utf-8"), new String(encoder.encode(baiduAppId.getBytes("utf-8")),"utf-8"));
-			p.setProperty(new String(encoder.encode("baiduSecurityKey".getBytes("utf-8")),"utf-8"), new String(encoder.encode(baiduSecurityKey.getBytes("utf-8")),"utf-8"));
+			p.setProperty(new String(encoder.encode("youdaoAppKey".getBytes("utf-8")), "utf-8"),
+					new String(encoder.encode(youdaoAppKey.getBytes("utf-8")), "utf-8"));
+			p.setProperty(new String(encoder.encode("youdaoAppSecret".getBytes("utf-8")), "utf-8"),
+					new String(encoder.encode(youdaoAppSecret.getBytes("utf-8")), "utf-8"));
+			p.setProperty(new String(encoder.encode("baiduAppId".getBytes("utf-8")), "utf-8"),
+					new String(encoder.encode(baiduAppId.getBytes("utf-8")), "utf-8"));
+			p.setProperty(new String(encoder.encode("baiduSecurityKey".getBytes("utf-8")), "utf-8"),
+					new String(encoder.encode(baiduSecurityKey.getBytes("utf-8")), "utf-8"));
 			p.store(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), "utf-8")), "\\");
 		} catch (IOException e) {
 			e.printStackTrace();

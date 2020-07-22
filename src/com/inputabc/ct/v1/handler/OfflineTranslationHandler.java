@@ -1,7 +1,11 @@
 package com.inputabc.ct.v1.handler;
 
 import org.apache.lucene.store.Directory;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public interface OfflineTranslationHandler extends TranslateHandler{
 	/**
 	 * 将翻译后的内容写入索引库中

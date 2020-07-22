@@ -5,7 +5,11 @@ import javax.swing.JButton;
 import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingBaiduPanel;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingControlPanel;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingBaiduPanelAction {
 	private KeySettingBaiduPanel keySettingBaiduPanel;
 	public KeySettingBaiduPanelAction(KeySettingBaiduPanel keySettingBaiduPanel) {

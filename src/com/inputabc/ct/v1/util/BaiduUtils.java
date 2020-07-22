@@ -7,7 +7,13 @@ import com.baidu.translate.demo.TransApi;
 
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.json.JSONObject;
-
+/**
+ * 
+ * @author baidu
+ * @author gaoweiyi
+ * 
+ *
+ */
 public class BaiduUtils {
 	public static final String CHINESE = "zh";
 	public static final String ENGLISH = "en";

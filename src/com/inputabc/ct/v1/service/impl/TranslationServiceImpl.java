@@ -17,7 +17,11 @@ import com.inputabc.ct.v1.handler.impl.OfflineTranslationHandlerImpl;
 import com.inputabc.ct.v1.service.TranslationService;
 import com.inputabc.ct.v1.util.BaiduUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class TranslationServiceImpl implements TranslationService {
 	private Map<Object, Object> contextParam = ContextParams.contextParam;
 	private ForcedTranslationHandler fth = new ForcedTranslationHandlerImpl();

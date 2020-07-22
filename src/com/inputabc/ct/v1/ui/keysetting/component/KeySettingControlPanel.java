@@ -10,7 +10,11 @@ import javax.swing.JPanel;
 import com.inputabc.EzGUIFramework.listener.ListenerBinder;
 import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.ui.keysetting.action.KeySettingControlPanelAction;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingControlPanel extends JPanel {
 	private JButton okButton;
 	private JButton cancelButton;

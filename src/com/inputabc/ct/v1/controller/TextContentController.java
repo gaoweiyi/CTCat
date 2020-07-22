@@ -3,7 +3,11 @@ package com.inputabc.ct.v1.controller;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.service.TranslationService;
 import com.inputabc.ct.v1.service.impl.TranslationServiceImpl;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class TextContentController {
 	private TranslationService ts = new TranslationServiceImpl();
 

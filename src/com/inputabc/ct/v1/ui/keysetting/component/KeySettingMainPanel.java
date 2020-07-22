@@ -5,7 +5,11 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingMainPanel extends JPanel{
 	private KeySettingKeyItemPanel keySettingKeyItemPanel;
 	private KeySettingControlPanel keySettingControlPanel;

@@ -5,7 +5,11 @@ import javax.swing.JButton;
 import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingControlPanel;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingYoudaoPanel;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingYoudaoPanelAction {
 	private KeySettingYoudaoPanel keySettingYoudaoPanel;
 	public KeySettingYoudaoPanelAction(KeySettingYoudaoPanel keySettingYoudaoPanel) {

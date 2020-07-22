@@ -16,7 +16,7 @@ import java.util.Date;
 			LogUtils.export(e);
 		}
  *	@version 3.1
- *
+ *  @author gaoweiyi
  */
 public class LogUtils {
 	private static PrintWriter pw;

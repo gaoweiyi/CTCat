@@ -14,7 +14,11 @@ import com.inputabc.EzGUIFramework.listener.ListenerBinder;
 import com.inputabc.EzGUIFramework.util.alias.Ez;
 import com.inputabc.ct.v1.context.ContextParams;
 import com.inputabc.ct.v1.ui.keysetting.action.KeySettingYoudaoPanelAction;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingYoudaoPanel extends JPanel {
 	private JLabel appKeyLabel;
 	private JTextField appKeyTextField;

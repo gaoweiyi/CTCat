@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * 存储项目中的某个窗口中的所有组件对象
  * key是组件的name，value是组件对象
- * @author yysp
+ * @author gaoweiyi
  *
  */
 public class Components extends HashMap<String,Component>{

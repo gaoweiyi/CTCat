@@ -1,7 +1,11 @@
 package com.inputabc.ct.v1.service;
 
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingFrame;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public interface KeySettingUIService {
 	public void setBounds(KeySettingFrame keySettingFrame) ;
 	public void setLayouts(KeySettingFrame keySettingFrame);

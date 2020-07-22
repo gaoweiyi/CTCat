@@ -26,7 +26,11 @@ import com.inputabc.ct.v1.ui.keysetting.component.KeySettingFrame;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingKeyItemPanel;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingMainPanel;
 import com.inputabc.ct.v1.ui.keysetting.component.KeySettingYoudaoPanel;
-
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class KeySettingUIServiceImpl implements KeySettingUIService {
 	private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);
 

@@ -20,6 +20,7 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -27,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import com.inputabc.EzGUIFramework.util.EzGUI;
 import com.inputabc.ct.v1.context.Components;
@@ -36,6 +38,11 @@ import com.inputabc.ct.v1.ui.listener.TextBoxPopupMeunListenerHandler;
 import com.inputabc.ct.v1.util.BaiduUtils;
 import com.inputabc.ct.v1.util.YoudaoUtils;
 
+/**
+ * 
+ * @author gaoweiyi
+ *
+ */
 public class TextBox {
 	private Components textBoxComponents = ComponentsBuilder.getComponentsContext().get(TextBox.class);
 	private JFrame jf = (JFrame) textBoxComponents.get("textBoxFrame");
@@ -79,6 +86,9 @@ public class TextBox {
 	private JMenuItem textBoxSpeckMenuAfterTranslateMenuSelected = (JMenuItem) textBoxComponents
 			.get("textBoxSpeckMenuAfterTranslateMenuSelected");
 	private JMenuItem textBoxKeyMenuItem = (JMenuItem) textBoxComponents.get("textBoxKeyMenuItem");
+	// 1.8.2
+	private JMenuBar jmb = (JMenuBar) textBoxComponents.get("textBoxMacMenuBar");
+	////
 	boolean left, right, up, down, add, subtract;
 	private Robot robot;
 
@@ -94,7 +104,13 @@ public class TextBox {
 	}
 
 	private void init() {
-		jf.setSize(320, 110);
+		//1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			jf.setSize(320, 110);
+		} else {
+			jf.setSize(700, 140);
+		}
+		////
 		EzGUI.center(jf, true);
 		jf.setLocation(jf.getX(), jf.getY() + 400);
 		jf.setContentPane(jp);
@@ -102,42 +118,57 @@ public class TextBox {
 		jp.add(jsp);
 
 		jsp.setAutoscrolls(true);
-		jsp.getViewport().setBackground(Color.BLACK);
-		ta.setForeground(new Color(255 - 50, 255 - 50, 255 - 50));
-		String os = System.getProperty("os.name");
-		if (os.toLowerCase().startsWith("win")) {
-			ta.setFont(new Font("幼圆", Font.BOLD, 16));
-		} else {
-			ta.setFont(new Font("宋体", Font.BOLD, 16));
-		}
+		//1.8.2
+		jsp.getViewport().setBackground((Color)((Map<Integer,Color>)ContextParams.contextParam.get("bgColorMap")).get((Integer)ContextParams.contextParam.get("colorMapPos")));
+		ta.setForeground((Color)((Map<Integer,Color>)ContextParams.contextParam.get("fgColorMap")).get((Integer)ContextParams.contextParam.get("colorMapPos")));
+		////
+		// 1.8.2
+		ta.setFont(new Font("幼圆", Font.BOLD, 16));
+		////
 		ta.setText("按住鼠标滚轮来拖拽我~");
 		ta.setLineWrap(true);
 		ta.setWrapStyleWord(true);
 		ta.setEditable(false);
 		ta.setOpaque(false);
 		ta.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
+		// 1.8.2
 		textBoxTranslationMenu.setText("互译");
-		jpm.add(textBoxTranslationMenu);
 		textBoxTranslationEngineMenu.setText("翻译引擎");
-		jpm.add(textBoxTranslationEngineMenu);
 		textBoxSpeckMenu.setText("朗读");
-		jpm.add(textBoxSpeckMenu);
 		copyMi.setText("复制");
-		jpm.add(copyMi);
 		selectAllMi.setText("全选");
-		jpm.add(selectAllMi);
 		selectAllAndCopyMi.setText("全选并复制");
-		jpm.add(selectAllAndCopyMi);
 		moveMi.setText("移动");
-		// jpm.add(moveMi);
 		textBoxRefreshMenu.setText("刷新");
-		jpm.add(textBoxRefreshMenu);
 		textBoxKeyMenuItem.setText("设置API密钥");
-		jpm.add(textBoxKeyMenuItem);
 		closeMi.setText("关闭");
-		jpm.add(closeMi);
+		////
+		// 1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			jpm.add(textBoxTranslationMenu);
+			jpm.add(textBoxTranslationEngineMenu);
+			jpm.add(textBoxSpeckMenu);
+			jpm.add(copyMi);
+			jpm.add(selectAllMi);
+			jpm.add(selectAllAndCopyMi);
+			// jpm.add(moveMi);
+			jpm.add(textBoxRefreshMenu);
+			jpm.add(textBoxKeyMenuItem);
+			jpm.add(closeMi);
 
+		} else {
+			jmb.add(textBoxTranslationMenu);
+			jmb.add(textBoxTranslationEngineMenu);
+			jmb.add(textBoxSpeckMenu);
+			jmb.add(copyMi);
+			jmb.add(selectAllMi);
+			jmb.add(selectAllAndCopyMi);
+			// jpm.add(moveMi);
+			jmb.add(textBoxRefreshMenu);
+			jmb.add(textBoxKeyMenuItem);
+			jmb.add(closeMi);
+		}
+		////
 		textBoxTranslationMenuEN2CN.setText("英->中");
 		textBoxTranslationMenu.add(textBoxTranslationMenuEN2CN);
 		textBoxTranslationMenuJA2CN.setText("日->中");
@@ -190,6 +221,12 @@ public class TextBox {
 				String sourceLanguage = (String) ContextParams.contextParam.get("sourceLanguage");
 				String sourceContent = (String) ContextParams.contextParam.get("sourceContent");
 				String translatedContent = (String) ContextParams.contextParam.get("translatedContent");
+				// 1.8.2
+				if (StringUtils.isBlank(translationEngine)) {
+					textBoxSpeckMenu.setEnabled(false);
+					return;
+				}
+				////
 				if ("baidu".equals(translationEngine)) {
 					if (BaiduUtils.AUTO.equals(sourceLanguage) == true) {
 						textBoxSpeckMenuBeforeTranslate.setEnabled(false);
@@ -265,14 +302,26 @@ public class TextBox {
 		textBoxSpeckMenuAfterTranslatedMenu.add(textBoxSpeckMenuAfterTranslateMenuAll);
 		textBoxSpeckMenuAfterTranslateMenuSelected.setText("已选择的");
 		textBoxSpeckMenuAfterTranslatedMenu.add(textBoxSpeckMenuAfterTranslateMenuSelected);
-
-		EzGUI.setJPopupMenuForSwing(ta, jpm);
-
+		// 1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			EzGUI.setJPopupMenuForSwing(ta, jpm);
+		} else {
+			jf.setJMenuBar(jmb);
+		}
+		////
 		jf.setAlwaysOnTop(true);
-		jf.setUndecorated(true);
-		jf.setOpacity(0.8f);
+
+		// 1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			jf.setUndecorated(true);
+			jf.setOpacity(0.8f);
+		}
+		////
 		event();// 批量注册事件监听器
 		EzGUI.removeButtonDottedLine(jf);
+		//1.8.2
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		////
 		jf.setVisible(true);
 
 	}
@@ -281,10 +330,17 @@ public class TextBox {
 	 * 批量注册事件监听器
 	 */
 	private void event() {
+
 		// 使窗口可拖动
 		bindDragListener(ta, jf);
 		// 给右键菜单绑定事件
-		new TextBoxPopupMeunListenerHandler(jpm).bindMenuItemListener();
+		// 1.8.2
+		if (SystemUtils.IS_OS_WINDOWS) {
+			new TextBoxPopupMeunListenerHandler(jpm).bindMenuItemListener();
+		} else {
+			new TextBoxPopupMeunListenerHandler(jmb).bindMenuItemListener();
+		}
+		////
 		ta.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
